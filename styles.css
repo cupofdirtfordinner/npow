@@ -2,7 +2,7 @@
 
 @font-face {
 	font-family: 'comicoro';
-	src:  url('comicoro.ttf')  format('truetype')
+	src:  url('fonts/comicoro.ttf')  format('truetype')
 	}
 
 body {
@@ -14,6 +14,23 @@ body {
   font-family: comicoro;
   color: white;
   box-sizing: border-box;
+  cursor: none;
+}
+
+.cursor {
+  width: 25px;
+  height: auto;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  pointer-events: none;
+  background-size: 100% 100%;
+  image-rendering: pixelated;
+}
+
+.outline {
+  filter: brightness(0) invert(1);
+  mix-blend-mode: difference;
 }
 
 /* anims */
@@ -31,7 +48,7 @@ body {
 
 @keyframes greyify {
   0% { background-color: black; transform: translateZ(400px) scaleX(0) scaleY(0) scaleZ(1.4); }
-  100% { background-color: grey; transform: translateZ(0px) scaleX(1.4) scaleY(1.4) scaleZ(1.4); }
+  100% { background-color: dimgrey; transform: translateZ(0px) scaleX(1.4) scaleY(1.4) scaleZ(1.4); }
 }
 
 /* too laggy on lower end devices
@@ -42,10 +59,10 @@ body {
 */
 
 .transitionless {
-  -webkit-transition: none !important;
-  -moz-transition: none !important;
-  -o-transition: none !important;
-  transition: none !important;
+  -webkit-transition: 0s !important;
+  -moz-transition: 0s !important;
+  -o-transition: 0s !important;
+  transition: 0s !important;
 }
 
 
@@ -80,7 +97,7 @@ body {
 #minimap {
   width: 20em;
   margin: auto;
-  background-color: grey;
+  background-color: dimgrey;
   animation: greyify 1s ease 1;
   border-style: solid;
   border-radius: 3%;
@@ -98,22 +115,33 @@ body {
   border-style: solid;
   border-radius: 5%;
   border-width: 1px;
-  background-color: grey;
+  background-color: #8c8c8c;
   transition: 0.1s;
   transform: translateZ(8px);
-  animation: fall 3s ease-in-out 1;
+  animation: fall 1.5s ease-in-out 1;
   
 }
 
 .gridspace:hover {
   box-shadow: 0px 7px 15px rgba(255, 255, 255, 0.3);
-  transform: translateZ(5px);
+  transform: translateZ(3px);
 }
 
 .object {
   box-shadow: 0px 15px 8px rgba(0, 0, 0, 0.5);
-  transform: translateZ(11px);background: rgb(51,51,51);background: rgb(51,51,51);
-  background: radial-gradient(circle, rgba(51,51,51,1) 10%, rgba(128,128,128,1) 76%);
+  transform: translateZ(11px);
+  background: rgb(51,51,51);
+  background: radial-gradient(circle, rgba(51,51,51,1) 20%, #8c8c8c 60%);
+  transition-duration: 0.1s;
+}
+
+.abs, .abs * {
+  pointer-events: none;
+}
+
+.gridspace.object:hover {
+  background: rgb(51,51,51);
+  background: radial-gradient(circle, rgba(51,51,51,1) -5%, #8c8c8c 60%);
 }
 
 .stopanims {
@@ -122,8 +150,8 @@ body {
 }
 
 .pageload.object {
-  animation-delay: .5s;
-  animation: fallObject 3s ease-in-out 1;
+  animation-delay: .6s;
+  animation: fallObject 1.5s ease-in-out 1;
   
 }
 
@@ -131,6 +159,8 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
+  transform: translateZ(1px);
+  transition-duration: 0.15s;
 }
 
 .gridspace .abs > img {
@@ -148,7 +178,10 @@ body {
 
 .gridspace:hover .abs > img {
   filter: drop-shadow(3px 0 .5px OrangeRed) drop-shadow(0 3px .5px OrangeRed) drop-shadow(-3px 0 .5px OrangeRed) drop-shadow(0 -3px .5px OrangeRed);
-  margin-top: -6px;
+}
+
+.gridspace:hover .abs {
+  transform: translateZ(15px);
 }
 
 #mapcontainer {
@@ -170,4 +203,10 @@ body {
   
   /* probably a pretty cursed way to do font-size, but lazier and easier for me */
   text-shadow: 0px 0px 4px black;
+}
+
+.pcompass {
+  width: 100px;
+  height: 100px;
+  background-color: green;
 }
