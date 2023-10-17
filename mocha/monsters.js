@@ -57,3 +57,8 @@ function spawn(sx, sy, what) {
     }
   }
 }
+
+//ai
+
+//nothing here yet.
+//who tf you think i am?

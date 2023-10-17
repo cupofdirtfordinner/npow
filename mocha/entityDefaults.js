@@ -8,7 +8,9 @@ var playerDefaults = {
   attack: 10,
   magic: 10,
   gold: 0,
-  animframe: 0
+  animframe: 0,
+  currentWeapon: 0,
+  effect: ''
 }
 var defaults = {
   bat: {

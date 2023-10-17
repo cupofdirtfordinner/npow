@@ -65,17 +65,39 @@ body {
   transition: 0s !important;
 }
 
+.gridspace:hover .abs > img {
+  filter: drop-shadow(3px 0 .5px OrangeRed) drop-shadow(0 3px .5px OrangeRed) drop-shadow(-3px 0 .5px OrangeRed) drop-shadow(0 -3px .5px OrangeRed);
+}
+
+.gridspace:hover .abs {
+  transform: translateZ(15px);
+}
+
+.gridspace.object:hover {
+  background: rgb(51,51,51);
+  background: radial-gradient(circle, rgba(51,51,51,1) -5%, #8c8c8c 60%);
+}
+
+.gridspace:hover {
+  box-shadow: 0px 7px 15px rgba(255, 255, 255, 0.3);
+  transform: translateZ(3px);
+}
 
 /* ui */
 #ui {
+  position: absolute;
+  top: 0;
+  left: 0;
   z-index: 4;
   font-size: 1.4em;
+  width: 50vw;
+  height: 70vh;
+  background-color: rgba(0, 0, 255, 0.5);
 }
 
-
 #stats {
-  width: 90vw;
   height: 3.5em;
+  width: 90vw;
   position: absolute;
   border-style: solid;
   left: 5vw;
@@ -84,33 +106,31 @@ body {
 
 /* game */
 #map {
-  width: 50vw;
-  height: 22em;
-  transform-origin: 50% 50%;
-  margin-left: 25vw;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 255, 0, 0.2);
   margin-top: 10vh;
-  transform: rotateX(60deg);
   position: absolute;
+  transform: rotatex(60deg);
   text-align: center;
 }
 
 #minimap {
-  width: 20em;
+  width: 25vw;
+  height: 80%;
   margin: auto;
   background-color: dimgrey;
   animation: greyify 1s ease 1;
-  border-style: solid;
-  border-radius: 3%;
-  border-width: 1px;
   transform: scaleX(1.4) scaleY(1.4) scaleZ(1.4);
 }
 
 .gridspace {
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
-  width: 2.5em;
-  height: 2.5em;
+  width: 12%;
+  height: 12%;
   padding: 2px;
   margin: 2px;
+  box-sizing: border-box;
   display: inline-block;
   border-style: solid;
   border-radius: 5%;
@@ -120,11 +140,6 @@ body {
   transform: translateZ(8px);
   animation: fall 1.5s ease-in-out 1;
   
-}
-
-.gridspace:hover {
-  box-shadow: 0px 7px 15px rgba(255, 255, 255, 0.3);
-  transform: translateZ(3px);
 }
 
 .object {
@@ -137,11 +152,6 @@ body {
 
 .abs, .abs * {
   pointer-events: none;
-}
-
-.gridspace.object:hover {
-  background: rgb(51,51,51);
-  background: radial-gradient(circle, rgba(51,51,51,1) -5%, #8c8c8c 60%);
 }
 
 .stopanims {
@@ -172,23 +182,21 @@ body {
   margin-left: -5px;
 
   image-rendering: pixelated;
-  filter: drop-shadow(1.5px 0 0 LightGrey) drop-shadow(0 1.5px 0 LightGrey) drop-shadow(-1.5px 0 0 LightGrey) drop-shadow(0 -1.5px 0 LightGrey);
   transition: 0.1s;
 }
 
-.gridspace:hover .abs > img {
-  filter: drop-shadow(3px 0 .5px OrangeRed) drop-shadow(0 3px .5px OrangeRed) drop-shadow(-3px 0 .5px OrangeRed) drop-shadow(0 -3px .5px OrangeRed);
-}
-
-.gridspace:hover .abs {
-  transform: translateZ(15px);
-}
-
 #mapcontainer {
-  perspective: 700px;
-  transform-style: preserve-3d;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 30vw;
+  perspective: 1050px;
+  transform-style: flat;
   perspective-origin: 50% 0%;
   text-align: center;
+  background-color: rgba(255, 0, 0, 0.4);
+  width: 80vw;
+  height:40vh;
 }
 
 #mapcontainer * {
@@ -198,7 +206,7 @@ body {
 
 .coords {
   position: absolute;
-  transform: translateZ(1em) translateY(3em) translateX(-1.5em) rotateX(-10deg);
+  transform: translateZ(1em) translateY(2em) translateX(-1.5em) rotateX(-10deg);
   font-size: 0.7em;
   
   /* probably a pretty cursed way to do font-size, but lazier and easier for me */
@@ -206,7 +214,14 @@ body {
 }
 
 .pcompass {
-  width: 100px;
+  width: 50px;
   height: 100px;
-  background-color: green;
+  background-size: 100% 100%;
+  image-rendering: pixelated;
+  transform-origin: 50% 100%;
+  z-index: 10;
+  transform-style: flat;
+  filter: grayscale(100%) brightness(10) drop-shadow(1.5px 0 0 LightGrey) drop-shadow(0 1.5px 0 LightGrey) drop-shadow(-1.5px 0 0 LightGrey) drop-shadow(0 -1.5px 0 LightGrey);
+  position: absolute;
+  pointer-events: none;
 }

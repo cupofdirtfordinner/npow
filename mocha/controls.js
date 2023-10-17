@@ -27,22 +27,26 @@ document.addEventListener('keydown', function(event) {
 
 
   if (key == "i") {
-    direction = 3
+    dir = 3
   }
   if (key == "k") {
-    direction = 1
+    dir = 1
   }
   if (key == "j") {
-    direction = 2
+    dir = 2
   }
   if (key == "l") {
-    direction = 4
+    dir = 4
+  }
+  
+  if (key == "space") {
+    attack()
   }
 
   if (coordsChecker(entities[0], {
       x: target.x,
       y: target.y
-    }) == true) {
+    }) === true) {
     entities[0].x = target.x
     entities[0].y = target.y
     position()
