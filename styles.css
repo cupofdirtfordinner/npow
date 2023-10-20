@@ -26,6 +26,8 @@ body {
   pointer-events: none;
   background-size: 100% 100%;
   image-rendering: pixelated;
+  z-index: 100;
+  display: inline;
 }
 
 .outline {
@@ -90,8 +92,8 @@ body {
   left: 0;
   z-index: 4;
   font-size: 1.4em;
-  width: 50vw;
-  height: 70vh;
+  width: 35vw;
+  height: 100vh;
   background-color: rgba(0, 0, 255, 0.5);
 }
 
@@ -109,16 +111,27 @@ body {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 255, 0, 0.2);
-  margin-top: 10vh;
   position: absolute;
-  transform: rotatex(60deg);
+  transform: translateZ(-100px) rotatex(60deg);
   text-align: center;
+  margin-top: 10vh;
+}
+
+#testdiv {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  background-color: rgba(0, 255, 255, 0.4);
+  z-idnex: 24;
+  pointer-events: none;
+  opacity: 0.2
 }
 
 #minimap {
-  width: 25vw;
-  height: 80%;
+  max-width: 80%;
+  max-height: 80%;
   margin: auto;
+  aspect-ratio: 1 / 1;
   background-color: dimgrey;
   animation: greyify 1s ease 1;
   transform: scaleX(1.4) scaleY(1.4) scaleZ(1.4);
@@ -126,10 +139,9 @@ body {
 
 .gridspace {
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
-  width: 12%;
-  height: 12%;
-  padding: 2px;
-  margin: 2px;
+  width: 13%;
+  height: 13%;
+  margin: .5%;
   box-sizing: border-box;
   display: inline-block;
   border-style: solid;
@@ -139,7 +151,6 @@ body {
   transition: 0.1s;
   transform: translateZ(8px);
   animation: fall 1.5s ease-in-out 1;
-  
 }
 
 .object {
@@ -174,8 +185,8 @@ body {
 }
 
 .gridspace .abs > img {
-  width: 100%;
-  height: auto;
+  max-width: 90%;
+  height: 120%;
   position: relative;
   transform-origin: bottom;
   transform: translateY(-80%) rotateX(-90deg);
@@ -189,14 +200,14 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  margin-left: 30vw;
+  margin-left: 35vw;
   perspective: 1050px;
   transform-style: flat;
   perspective-origin: 50% 0%;
   text-align: center;
   background-color: rgba(255, 0, 0, 0.4);
-  width: 80vw;
-  height:40vh;
+  width: 65vw;
+  height:60vh;
 }
 
 #mapcontainer * {
@@ -206,8 +217,7 @@ body {
 
 .coords {
   position: absolute;
-  transform: translateZ(1em) translateY(2em) translateX(-1.5em) rotateX(-10deg);
-  font-size: 0.7em;
+  transform: translateZ(1000%) rotateX(-10deg);
   
   /* probably a pretty cursed way to do font-size, but lazier and easier for me */
   text-shadow: 0px 0px 4px black;
@@ -224,4 +234,5 @@ body {
   filter: grayscale(100%) brightness(10) drop-shadow(1.5px 0 0 LightGrey) drop-shadow(0 1.5px 0 LightGrey) drop-shadow(-1.5px 0 0 LightGrey) drop-shadow(0 -1.5px 0 LightGrey);
   position: absolute;
   pointer-events: none;
+  box-shadow: 0px 0px 10px red;
 }

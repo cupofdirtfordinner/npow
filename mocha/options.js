@@ -20,11 +20,11 @@ document.getElementById('anim').addEventListener('change', function() {
     }
   }
 })
-var batterysaver = 50
+var batterysaver = 30
 document.getElementById('batt').addEventListener('change', function() {
   if (this.checked === true) {
-    batterysaver = 300
+    batterysaver = 120
   } else {
-    batterysaver = 50
+    batterysaver = 30
   }
 })

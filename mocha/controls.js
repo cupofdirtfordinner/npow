@@ -9,20 +9,27 @@ document.addEventListener('keydown', function(event) {
   }
 
   if (key == "r") {
-    spawn("shotinthedark", 0, 'idc')
+    spawn("shotinthedark", 0, 'idc');
   }
 
   if (key == "w") {
-    target.y -= 1
+    target.y -= 1;
   }
   if (key == "s") {
-    target.y += 1
+    target.y += 1;
   }
   if (key == "a") {
-    target.x -= 1
+    target.x -= 1;
   }
   if (key == "d") {
-    target.x += 1
+    target.x += 1;
+  }
+  
+  if (key == ".") {
+    weaponSwap(1);
+  }
+  if (key == ",") {
+    weaponSwap(-1);
   }
 
 
@@ -39,8 +46,9 @@ document.addEventListener('keydown', function(event) {
     dir = 4
   }
   
-  if (key == "space") {
-    attack()
+  if (key == " ") {
+    testspan[3].textContent = "wowie";
+    attack();
   }
 
   if (coordsChecker(entities[0], {
