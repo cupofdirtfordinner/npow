@@ -1,17 +1,20 @@
 features
 -health bars
 -attacking/fighting
--directionality {next}
--cursor changing on hover
 -entity autonomy
--weapons
+-weapons // doing
 -sfx
 -bombs
 -shops?
 -walls?
 ------
 bugs
+
 -animdivis (controls how often an entity will update its animation frame) has a weird bug where it will stop all animated entities except for one that will move really fast, depending on the number of animated entities on screen. at the moment it's just always set to 1 for all the relevant entities, so everything updates at the same rate.
 -starting animations on gridspaces if an entity appears on it. best fix is probably to just disable anything spawning or moving during the first second of the page loading, because nothing should really be changing then anyways.
 
-"<a class='gotoLine' href='#551:15'>551:15</a> Uncaught TypeError: Cannot read properties of null (reading 'setAttribute')"
+------
+done
+
+-directionality
+-cursor changing on hover

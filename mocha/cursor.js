@@ -24,27 +24,25 @@ function cursorify(huh) {
 }
 
 function cursorcolorer() {
-  if (document.elementFromPoint(mousex, mousey).classList.contains('object') ) {
-    cursorify("red")
-  } else {
-   cursorify("blue")
+  if (document.elementFromPoint(mousex, mousey) ) {  //otherwise this outputs like a billion errors in the console
+    if (document.elementFromPoint(mousex, mousey).classList.contains('object') ) {
+      cursorify("red")
+    } else {
+    cursorify("blue")
+    }
   }
-  testspan[2].textContent = varThe
 }
 
-var varThe = 0
 //hide or show if inside page
 document.addEventListener("mouseover", mouseInPage);
 document.addEventListener("mouseout", mouseOutPage); //I have the theme from #1 best flash game of all time "Dad N' Me" stuck in my head. i just thought you should know that, code comment reader
 function mouseInPage() {
     cursorelem.style.display = "inline"
     outlineelem.style.display = "inline"
-    varThe += 1
 }
 function mouseOutPage() {
     cursorelem.style.display = "none"
     outlineelem.style.display = "none"
-    varThe += 1
 }
 
 //hide after pressing keys

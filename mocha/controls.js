@@ -9,27 +9,27 @@ document.addEventListener('keydown', function(event) {
   }
 
   if (key == "r") {
-    spawn("shotinthedark", 0, 'idc');
+    spawn("shotinthedark", 0, 'idc'); //monsters.js
   }
 
   if (key == "w") {
-    target.y -= 1;
+    target.y -= 1; //V
   }
   if (key == "s") {
-    target.y += 1;
+    target.y += 1; //V
   }
   if (key == "a") {
-    target.x -= 1;
+    target.x -= 1; //V
   }
   if (key == "d") {
-    target.x += 1;
+    target.x += 1; //init.js
   }
   
   if (key == ".") {
-    weaponSwap(1);
+    weaponSwap(1); //V
   }
   if (key == ",") {
-    weaponSwap(-1);
+    weaponSwap(-1); //attacks.js
   }
 
 
@@ -47,18 +47,17 @@ document.addEventListener('keydown', function(event) {
   }
   
   if (key == " ") {
-    testspan[3].textContent = "wowie";
-    attack();
+    attack(); //attacks.js
   }
 
-  if (coordsChecker(entities[0], {
+  if (coordsChecker(entities[0], { //coordschecker - init.js
       x: target.x,
       y: target.y
     }) === true) {
     entities[0].x = target.x
     entities[0].y = target.y
-    position()
+    position() //init.js
   }
   
-  cursoropacity()
+  cursoropacity() //cursor.js
 });
