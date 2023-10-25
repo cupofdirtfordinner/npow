@@ -40,7 +40,6 @@ function gridify(width, height) {
 }
 
 function position() {
-
   for (let h = 0; h < globalheight; h++) {
     for (let w = 0; w < globalwidth; w++) {
       
@@ -52,8 +51,17 @@ function position() {
 
   for (let i = 0; i < entities.length; i++) {
     const whateverthisis = document.getElementById(entities[i].x + '-' + entities[i].y + "bg1");
-    whateverthisis.setAttribute("src", eval(entities[i].sprite)); //I keep seeing that eval is bad, but whenever I look up why it's bad I seem to be using it in a way that's disclosed as not bad. I think. I also cannot find analternative to eval
-    whateverthisis.parentElement.parentElement.classList.add('object');
+    if (entities[i].health > 0) {
+      whateverthisis.setAttribute("src", eval(entities[i].sprite)); //I keep seeing that eval is bad, but whenever I look up why it's bad I seem to be using it in a way that's disclosed as not bad. I think. I also cannot find analternative to eval
+      whateverthisis.parentElement.parentElement.classList.add('object');
+    } else {
+      //remove entity from existence
+      testspan[0].textContent = '$entities'
+      testspan[1].textContent = '$entities[i]'
+      entities.splice(i, 1)
+      testspan[3].textContent = '$entities'
+      position()
+    }
   }
 }
 
@@ -81,6 +89,17 @@ function coordsChecker(selfEnt, target) {
     } else {
       return true;
     }
+  }
+}
+
+function coordsReturnEnt(target) {
+  for (let i = 0; i < (entities.length); i++) {
+    if (
+        entities[i].x == target.x &&
+        entities[i].y == target.y
+      ) {
+        return entities[i]
+      }
   }
 }
 

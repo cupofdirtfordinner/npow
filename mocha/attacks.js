@@ -8,24 +8,50 @@ function weaponSwap(dir) {
     }
   }
 
-  function attack() {
-    const amt = 40
-    if (dir == 1) {
-      atkanimy = amt
+  function attack(self, coords) {
+    var attackTarget
+    if (self === entities[0]) {
+      
+      attackTarget = {x: entities[0].x, y: entities[0].y}
+      const amt = 20 //for animating
+      if (dir == 1) {
+        ++attackTarget.y
+        atkanimy = amt
+      }
+      if (dir == 3) {
+        --attackTarget.y
+        atkanimy = -amt
+      }
+      if (dir == 4) {
+        ++attackTarget.x
+        atkanimx = amt
+      }
+      if (dir == 2) {
+        --attackTarget.x
+        atkanimx = -amt
+      }
+    } else {
+      attackTarget = coords
     }
-    if (dir == 3) {
-      atkanimy = -amt
+    
+    if (coordsReturnEnt(attackTarget) ) {
+      const enemy = coordsReturnEnt(attackTarget)
+      enemy.health -= self.damage
+      position()
     }
-    if (dir == 4) {
-      atkanimx = amt
-    }
-    if (dir == 2) {
-      atkanimx = -amt
-    }
+    
   }
   const compass = document.createElement("div");
   minimap.appendChild(compass);
   compass.classList.add('pcompass');
+  
+  function whichWeapon() {
+    if (entities[0].currentWeapon == 3) {
+      return "y"
+    } else {
+      return "x"
+    } // this is fucked. fix it later
+  }
   
   var rect = {};
   var width = 0;
@@ -51,11 +77,11 @@ function weaponSwap(dir) {
     testdiv.style.top = rect.top;
     
     //moving the compass
-    compass.style.transform = "translate3d("+ x +"px, "+ y +"px, "+50+"px) rotateZ("+ ( ((dir) * 90)+ 90) +"deg) scale(.75)";
+    compass.style.transform = "translate3d("+ x +"px, "+ y +"px, "+50+"px) rotateZ("+ (dir * 90 + 90) +"deg) rotate"+whichWeapon()+"("+(entities[0].currentWeapon * 90)+"deg) scale(.5)";
     compass.style.backgroundImage = "url(' "+ eval(weapons[entities[0].currentWeapon]) +" ')";
 
     //animating compass
-    const speed = batterysaver / 25
+    const speed = batterysaver / 21;
     atkanimx /= speed;
     atkanimy /= speed;
     if (Math.abs(atkanimx) < 0.5) {
@@ -64,7 +90,6 @@ function weaponSwap(dir) {
     if (Math.abs(atkanimy) < 0.5) {
       atkanimy = 0;
     }
-    
     
     //make this a function instead of an if statement that runs every frame later. for performance
     //i cant tell if i even care about performance anymore
@@ -75,4 +100,8 @@ function weaponSwap(dir) {
     } else {
         compass.style.filter = 'grayscale(100%)' //doesnt work. idk why and it pisses me off! future laith figure this shit out
     }*/
+  }
+  
+  function deathEffect(whatami) { //whoami //dated vine reference day
+    
   }

@@ -10,12 +10,14 @@ var playerDefaults = {
   gold: 0,
   animframe: 0,
   currentWeapon: 0,
-  effect: ''
+  effect: '',
+  damage: 5
 }
+
 var defaults = {
   bat: {
     defaultName: "bat",
-    health: 10,
+    health: 6,
     attack: 10,
     magic: 10,
     gold: 0,
@@ -32,8 +34,8 @@ var defaults = {
     animdivis: 1
   },
   chest: {
-    defaultName: "bat",
-    health: 10,
+    defaultName: "chest",
+    health: 1,
     attack: 10,
     magic: 10,
     gold: 0,
@@ -41,8 +43,8 @@ var defaults = {
     animdivis: 1
   },
   potion: {
-    defaultName: "goblin",
-    health: 10,
+    defaultName: "potion",
+    health: 1,
     attack: 10,
     magic: 10,
     gold: 0,

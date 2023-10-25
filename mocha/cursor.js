@@ -8,8 +8,8 @@ cursorify("blue")
 
 //move custom cursor
 window.addEventListener('mousemove', function(event) {
-  mousey = event.clientY - 10
-  mousex = event.clientX - 10
+  mousey = event.clientY - 5
+  mousex = event.clientX - 4
   cursorelem.style.top = `${mousey}px`
   cursorelem.style.left = `${mousex}px`
   outlineelem.style.top = `${mousey}px`
