@@ -23,8 +23,15 @@ document.getElementById('anim').addEventListener('change', function() {
 var batterysaver = 30
 document.getElementById('batt').addEventListener('change', function() {
   if (this.checked === true) {
-    batterysaver = 120
+    batterysaver = 240
   } else {
     batterysaver = 30
+  }
+})
+document.getElementById('debu').addEventListener('change', function() {
+  if (this.checked === false) {
+   document.querySelector(".debug").style.display = "none"
+  } else {
+   document.querySelector(".debug").style.display = "block"
   }
 })

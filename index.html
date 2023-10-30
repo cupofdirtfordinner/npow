@@ -10,7 +10,7 @@
     </div>
     </div>
     </div>
-    <div id="testdiv"></div>
+    <div id="testdiv" class="pathFail"></div>
     <div id="ui">
     
     <span> controls: <br>
@@ -32,6 +32,8 @@
     <label>pause animations(doesnt work)</label><br>
     <input type="checkbox" id="batt" name="batt" value="batt">
     <label>battery saver</label><br>
+    <input type="checkbox" id="debu" name="debu" value="debu">
+    <label>debug</label><br>
     </div>
     
     <div id="stats">
@@ -42,11 +44,19 @@
     <img class="cursor">
     <img class="cursor outline">
     
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <span class="testspan">alice</span> <br>
     <span class="testspan">bob</span> <br>
-    <span class="testspan">chris</span> <br>
-    <span class="testspan">debora</span>
+    <span class="testspan">carol</span> <br>
+    <span class="testspan">david</span> <br>
+    <span class="testspan">erection</span> <br>
+    
+    <div class="debug">
+      <span style='color:white;opacity:.4;font-style:italic;'>hiding everything that's null</span><br>
+      <input type='text' name='filter' value='' placeholder='filter results' style='color:blue;width:100%;left:5%;background-color:white;opacity:.5' id='debugfilter'><br>
+      <input type='text' name='filter' value='' placeholder='exclude results' style='color:blue;width:100%;left:5%;background-color:white;opacity:.5' id='debugexclude'><br>
+      <span class="testspan">frank</span>
+     </div>
     
     <script src="mocha/textures.js"></script>
     <script src="mocha/controls.js"></script>

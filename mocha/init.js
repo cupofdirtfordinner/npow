@@ -3,8 +3,9 @@ var entities = [];
 
 var globalwidth = 0;
 var globalheight = 0;
-
 function gridify(width, height) {
+  
+  //save all initial variables for debug menu
   entities[0] = playerDefaults;
 
   for (let i = 0; i < height; i++) {
@@ -23,13 +24,13 @@ function gridify(width, height) {
       ab.appendChild(bg1);
       gridspace.id = x + "-" + y;
       bg1.id = x + "-" + y + "bg1";
-      text.textContent = x + "," + y;
+      text.textContent = gridspace.id;//x + "," + y;
       text.classList.add("coords");
       gridspace.classList.add("gridspace", "pageload");
+      gridspace.setAttribute("onclick", "path("+x+", "+y+")");
       ab.setAttribute("class", "abs");
-
     }
-    //we used to add a <br> element here, but it doesnt do anything because the css "display: inline-block" on all the divs
+    //we used to add a <br> element here, but it doesnt do anything because the css "display: inline-block" on all the divs. that means no support for bigger grids, but im not sure who that would really help anyways. sorry
   }
 
   entities[0].x = Math.round((width / 2) - 1);
@@ -52,15 +53,13 @@ function position() {
   for (let i = 0; i < entities.length; i++) {
     const whateverthisis = document.getElementById(entities[i].x + '-' + entities[i].y + "bg1");
     if (entities[i].health > 0) {
+      //clear board
       whateverthisis.setAttribute("src", eval(entities[i].sprite)); //I keep seeing that eval is bad, but whenever I look up why it's bad I seem to be using it in a way that's disclosed as not bad. I think. I also cannot find analternative to eval
       whateverthisis.parentElement.parentElement.classList.add('object');
     } else {
       //remove entity from existence
-      testspan[0].textContent = '$entities'
-      testspan[1].textContent = '$entities[i]'
-      entities.splice(i, 1)
-      testspan[3].textContent = '$entities'
-      position()
+      entities.splice(i, 1);
+      position();
     }
   }
 }
@@ -98,16 +97,67 @@ function coordsReturnEnt(target) {
         entities[i].x == target.x &&
         entities[i].y == target.y
       ) {
-        return entities[i]
+        return entities[i];
       }
   }
 }
 
-//
+function pathoverlap(xr, yr) {
+  const moveto = entities[0].moveto;
+  var checks = 0;
+  for (let i = 0; i < moveto.length - 1; i++) {
+    if (moveto[moveto.length - 1] == moveto[i]) {checks += 1}
+    if (checks>0) { return false } else { return true }
+  }
+}
+var xref = 0;
+var yref = 0;
+var pathd = false;
+function path(x, y) {
+  xref = entities[0].x;
+  yref = entities[0].y;
+  
+  if (entities[0].moveto) {//if this is not the start of the path/nothing in the player's current path
+    xref = entities[0].moveto[entities[0].moveto.length - 1].x;
+    yref = entities[0].moveto[entities[0].moveto.length - 1].y;
+    pathd = true;
+  } else {pathd = false}
+  
+  if (
+    ( ((x <= xref+1 && x >= xref-1)&&y==yref) || //V
+    ((y <= yref+1 && x >= yref-1)&&x==xref) ) && //if the player's coords share a coord with the target
+    !(x==xref && y==yref) && //if the target is not the exact same as the player's coords
+    coordsChecker(x, y) && //if the target isn't occupied by an enemy
+    entities[0].instructions > 0 //if the player has instructions left
+    ) {
+      if ((pathd && pathoverlap())||(!pathd) ) { //seperated ifs so pathoevrlap doesnt run unless it needs to. better performance
+      testspan[1].textContent = "did shit work? weeheehee!";
+      entities[0].moveto.push( { x:x, y:y } );
+      //animating tiles
+      //document.getElementById(x+"-"+y).classList.remove("pathSuccess");
+      //document.getElementById(x+"-"+y).classList.add("pathSuccess");
+      //testspan[0].textContent = document.querySelector(".pathSucecess")
+    }} else {
+      testspan[1].textContent = "did shit work? nope";
+    }
+    
+  testspan[2].textContent = x +":"+ y;
+  testspan[3].textContent = entities[0].x +":"+ entities[0].y;
+}
+
 var myFunction = function() {
-    setTimeout(myFunction, batterysaver);
-    cursorcolorer(); //cursor.js
-    compassdir(); //attacks.js
+  setTimeout(myFunction, batterysaver);
+  cursorcolorer(); //cursor.js
+  compassdir(); //attacks.js
+  //testspan[0].textContent = "instructions: " + entities[0].instructions
+  testspan[0].textContent = JSON.stringify(entities[0].moveto);
+  testspan[4].textContent = "coordref:"+xref+","+yref;
+  //testspan[5].textContent = "pathd:"+pathd+" | pathoverlap:"+pathoverlap(xref, yref)
+  var variables = "";
+  
+  for (var name in this) {
+    if (document.getElementById('debu').checked === true && (name.includes(document.getElementById("debugfilter").value)) && (!(name.includes(document.getElementById("debugexclude").value))||(document.getElementById("debugexclude").value === "") ) ) {variables += "<span style='color:lightblue'>"+ JSON.stringify(name).replace('"', '').replace('"', '') +":</span> "+ eval(name) + "<span style='color:royalblue'> /br</span><br> ";}
+  }
+  testspan[5].innerHTML = variables;
 };
 setTimeout(myFunction, batterysaver);
-//

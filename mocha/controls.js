@@ -58,8 +58,10 @@ document.addEventListener('keydown', function(event) {
     if (key == " ") {
       attack(); //attacks.js
     }
+    if (key == "/") {
+      document.getElementById('debu').checked ^= true;
+    }
   }
-  
 
   if (coordsChecker(entities[0], {x: target.x, y: target.y}) === true) { //coordschecker - init.js
         entities[0].x = target.x

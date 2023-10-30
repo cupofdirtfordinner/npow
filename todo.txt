@@ -1,8 +1,8 @@
 features
 -health bars
 -attacking/fighting
+-paths // doing
 -entity autonomy
--weapons // doing
 -sfx
 -bombs
 -shops?

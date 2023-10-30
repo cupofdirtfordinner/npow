@@ -1,0 +1,13 @@
+pure javascript platformer game
+reboot scalper, make custom programming language toavoid allat copy paste
+syntax would look like
+
+  currency called: wood
+  currency called: stone
+  currency called: glugs
+
+  recipe: 4 wood + 10 stone = 8 glugs
+
+  worker called: villager = 0.1 glugs /sec
+
+and that'd generatethe html and javascript required for 3 currencies that automatically update every like 10 ms and all the other stuff, you get it
