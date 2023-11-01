@@ -14,7 +14,7 @@ body {
   font-family: comicoro;
   color: white;
   box-sizing: border-box;
-  cursor: none;
+  //cursor: none;
 }
 
 .cursor {
@@ -259,6 +259,7 @@ body {
   background-color: rgba(0, 0, 0, 0.75);
   padding: 14px;
   font-family: monospace !important;
+  display: none;
 }
 
 .debug, .debug * {

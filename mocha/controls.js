@@ -8,10 +8,6 @@ document.addEventListener('keydown', function(event) {
   }
   
   if (!event.repeat) {
-    if (key == " ") {
-      attack(entities[0]); //V
-    }
-    
     if (key == ".") {
       weaponSwap(1); //V
     }
@@ -38,7 +34,7 @@ document.addEventListener('keydown', function(event) {
     }
     
     
-    if (key == "i") {
+    /*if (key == "i") {
       dir = 3
       atkanimy = 7
     }
@@ -53,10 +49,10 @@ document.addEventListener('keydown', function(event) {
     if (key == "l") {
       dir = 4
       atkanimx = -7
-    }
+    }*/
     
     if (key == " ") {
-      attack(); //attacks.js
+      executepath(); //attacks.js
     }
     if (key == "/") {
       document.getElementById('debu').checked ^= true;
@@ -67,7 +63,7 @@ document.addEventListener('keydown', function(event) {
         entities[0].x = target.x
         entities[0].y = target.y
         position() //init.js
-      }//brokey
+      }
   
   cursoropacity() //cursor.js
 });

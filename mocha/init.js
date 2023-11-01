@@ -105,44 +105,57 @@ function coordsReturnEnt(target) {
 function pathoverlap(xr, yr) {
   const moveto = entities[0].moveto;
   var checks = 0;
-  for (let i = 0; i < moveto.length - 1; i++) {
-    if (moveto[moveto.length - 1] == moveto[i]) {checks += 1}
-    if (checks>0) { return false } else { return true }
+  for (let i = 0; i < moveto.length; i++) {
+    if (moveto[i].x == xr && moveto[i].y == yr) {checks += 1; testspan[6].textContent = "debug message"}
   }
+  if (checks>0) { return false } else { return true }
 }
-var xref = 0;
-var yref = 0;
-var pathd = false;
 function path(x, y) {
-  xref = entities[0].x;
-  yref = entities[0].y;
-  
-  if (entities[0].moveto) {//if this is not the start of the path/nothing in the player's current path
+  var xref = entities[0].x;
+  var yref = entities[0].y;
+  var pathd = false;
+  if (entities[0].moveto.length > 0) {//if this is not the start of the path/nothing in the player's current path
     xref = entities[0].moveto[entities[0].moveto.length - 1].x;
     yref = entities[0].moveto[entities[0].moveto.length - 1].y;
     pathd = true;
-  } else {pathd = false}
-  
+  } else {
+    pathd = false;
+  }
   if (
-    ( ((x <= xref+1 && x >= xref-1)&&y==yref) || //V
-    ((y <= yref+1 && x >= yref-1)&&x==xref) ) && //if the player's coords share a coord with the target
-    !(x==xref && y==yref) && //if the target is not the exact same as the player's coords
-    coordsChecker(x, y) && //if the target isn't occupied by an enemy
+    ((x>=xref-1 && x<=xref+1 && y==yref) || (y>=yref-1 && y<=yref+1 && x==xref)) && //if the player's coords share a coord with the target
+    coordsChecker('null', {x:x, y:y} ) && //if the target isn't occupied by an enemy
     entities[0].instructions > 0 //if the player has instructions left
     ) {
       if ((pathd && pathoverlap())||(!pathd) ) { //seperated ifs so pathoevrlap doesnt run unless it needs to. better performance
       testspan[1].textContent = "did shit work? weeheehee!";
       entities[0].moveto.push( { x:x, y:y } );
+      instructions -= 2;
       //animating tiles
       //document.getElementById(x+"-"+y).classList.remove("pathSuccess");
       //document.getElementById(x+"-"+y).classList.add("pathSuccess");
       //testspan[0].textContent = document.querySelector(".pathSucecess")
-    }} else {
-      testspan[1].textContent = "did shit work? nope";
+      }
+      else {
+      testspan[1].textContent = "did shit work? nope1";
+    }
+    } else {
+      testspan[1].textContent = "did shit work? nope2";
     }
     
   testspan[2].textContent = x +":"+ y;
   testspan[3].textContent = entities[0].x +":"+ entities[0].y;
+}
+
+const timer = ms => new Promise(res => setTimeout(res, ms))
+async function executepath() {
+  for (var i = 0; i < entities[0].moveto.length; i++) {
+    await timer(200)
+    entities[0].x = entities[0].moveto[i].x
+    entities[0].y = entities[0].moveto[i].y
+    position()
+  }
+  entities[0].moveto = []
+  testspan[5].textContent = "lol"
 }
 
 var myFunction = function() {
@@ -152,12 +165,14 @@ var myFunction = function() {
   //testspan[0].textContent = "instructions: " + entities[0].instructions
   testspan[0].textContent = JSON.stringify(entities[0].moveto);
   testspan[4].textContent = "coordref:"+xref+","+yref;
-  //testspan[5].textContent = "pathd:"+pathd+" | pathoverlap:"+pathoverlap(xref, yref)
+  testspan[6].textContent = entities[0].instructions;
   var variables = "";
   
-  for (var name in this) {
-    if (document.getElementById('debu').checked === true && (name.includes(document.getElementById("debugfilter").value)) && (!(name.includes(document.getElementById("debugexclude").value))||(document.getElementById("debugexclude").value === "") ) ) {variables += "<span style='color:lightblue'>"+ JSON.stringify(name).replace('"', '').replace('"', '') +":</span> "+ eval(name) + "<span style='color:royalblue'> /br</span><br> ";}
+  for (var name in this) { //for debug console
+    if (document.getElementById('debu').checked === true && (name.includes(document.getElementById("debugfilter").value)) && (!(name.includes(document.getElementById("debugexclude").value))||(document.getElementById("debugexclude").value === "") ) ) {
+        variables += "<span style='color:lightblue'>"+ JSON.stringify(name).replace('"', '').replace('"', '') +":</span> "+ eval(name) + "<span style='color:royalblue'> /br</span><br> ";
+      }
   }
-  testspan[5].innerHTML = variables;
+  document.getElementById('debugtext').innerHTML = variables;
 };
 setTimeout(myFunction, batterysaver);

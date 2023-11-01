@@ -11,7 +11,10 @@ var playerDefaults = {
   animframe: 0,
   currentWeapon: 0,
   effect: '',
-  damage: 5
+  damage: 5,
+  moveto: [],
+  instructions: 12,
+  instructionsdefault: 12
 }
 
 var defaults = {
