@@ -56,6 +56,12 @@ function position() {
       //clear board
       whateverthisis.setAttribute("src", eval(entities[i].sprite)); //I keep seeing that eval is bad, but whenever I look up why it's bad I seem to be using it in a way that's disclosed as not bad. I think. I also cannot find analternative to eval
       whateverthisis.parentElement.parentElement.classList.add('object');
+      
+      for (let o = 0; o < entities[0].moveto.length; o++) {
+        if ( !(entities[0].moveto[o].x == x && entities[0].moveto[o].y == y)) {
+        whateverthisis.parentElement.parentElement.classList.remove("pathSuccess");
+        }
+      }
     } else {
       //remove entity from existence
       entities.splice(i, 1);
@@ -105,10 +111,16 @@ function coordsReturnEnt(target) {
 function pathoverlap(xr, yr) {
   const moveto = entities[0].moveto;
   var checks = 0;
-  for (let i = 0; i < moveto.length; i++) {
-    if (moveto[i].x == xr && moveto[i].y == yr) {checks += 1; testspan[6].textContent = "debug message"}
+  for (let i = 0; i < entities[0].moveto.length; i++) {
+    if (entities[0].moveto[i].x == xr && entities[0].moveto[i].y == yr) {
+      checks += 1
+    }
   }
-  if (checks>0) { return false } else { return true }
+  if ( checks > 0 ) {
+    return false
+  } else {
+    return true
+  }
 }
 function path(x, y) {
   var xref = entities[0].x;
@@ -117,45 +129,52 @@ function path(x, y) {
   if (entities[0].moveto.length > 0) {//if this is not the start of the path/nothing in the player's current path
     xref = entities[0].moveto[entities[0].moveto.length - 1].x;
     yref = entities[0].moveto[entities[0].moveto.length - 1].y;
-    pathd = true;
+    pathd = true
   } else {
     pathd = false;
   }
   if (
     ((x>=xref-1 && x<=xref+1 && y==yref) || (y>=yref-1 && y<=yref+1 && x==xref)) && //if the player's coords share a coord with the target
     coordsChecker('null', {x:x, y:y} ) && //if the target isn't occupied by an enemy
-    entities[0].instructions > 0 //if the player has instructions left
+    entities[0].instructions - 2 > 0 //if the player has enough instructions left // also probably shouldnt hardcode the cost per move but whatever
     ) {
-      if ((pathd && pathoverlap())||(!pathd) ) { //seperated ifs so pathoevrlap doesnt run unless it needs to. better performance
-      testspan[1].textContent = "did shit work? weeheehee!";
-      entities[0].moveto.push( { x:x, y:y } );
-      instructions -= 2;
+      if ( ( pathd && pathoverlap(x, y) ) || (!pathd) ) {
+        entities[0].moveto.push( { x:x, y:y } );
+        entities[0].instructions -= 2;
       //animating tiles
-      //document.getElementById(x+"-"+y).classList.remove("pathSuccess");
-      //document.getElementById(x+"-"+y).classList.add("pathSuccess");
-      //testspan[0].textContent = document.querySelector(".pathSucecess")
+        document.getElementById(x+"-"+y).classList.remove("pathSuccess");
+        document.getElementById(x+"-"+y).classList.add("pathSuccess");
       }
       else {
-      testspan[1].textContent = "did shit work? nope1";
+      //get coords + create buttons to choose what attack/action to do on that tile
     }
     } else {
-      testspan[1].textContent = "did shit work? nope2";
+      //testspan[1].textContent = "did shit work? nope2";
     }
     
   testspan[2].textContent = x +":"+ y;
   testspan[3].textContent = entities[0].x +":"+ entities[0].y;
 }
 
-const timer = ms => new Promise(res => setTimeout(res, ms))
+const timer = ms => new Promise(res => setTimeout(res, ms));
 async function executepath() {
-  for (var i = 0; i < entities[0].moveto.length; i++) {
-    await timer(200)
-    entities[0].x = entities[0].moveto[i].x
-    entities[0].y = entities[0].moveto[i].y
-    position()
+  const pathlength = entities[0].moveto.length
+  if (pathlength > 0) {
+  for (var i = 0; i < pathlength; i++) {
+    await timer(300);
+    entities[0].x = entities[0].moveto[0].x;
+    entities[0].y = entities[0].moveto[0].y;
+    entities[0].moveto.shift();
+    position();
   }
-  entities[0].moveto = []
+  pathFinish()
+}}
+
+function pathFinish() {
   testspan[5].textContent = "lol"
+  spawn("shotinthedark", 0, 'idc');
+  entities[0].moveto = [];
+  entities[0].instructions = entities[0].instructionsdefault;
 }
 
 var myFunction = function() {
@@ -164,8 +183,7 @@ var myFunction = function() {
   compassdir(); //attacks.js
   //testspan[0].textContent = "instructions: " + entities[0].instructions
   testspan[0].textContent = JSON.stringify(entities[0].moveto);
-  testspan[4].textContent = "coordref:"+xref+","+yref;
-  testspan[6].textContent = entities[0].instructions;
+  document.getElementById('instructionsCounter').textContent = entities[0].instructions;
   var variables = "";
   
   for (var name in this) { //for debug console
@@ -174,5 +192,6 @@ var myFunction = function() {
       }
   }
   document.getElementById('debugtext').innerHTML = variables;
+  document.getElementById('filterhelper').textContent = "hiding" +document.getElementById("debugfilter").value=="b"?"gwag":"glorb"
 };
 setTimeout(myFunction, batterysaver);

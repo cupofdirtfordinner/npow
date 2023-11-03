@@ -13,8 +13,8 @@ var playerDefaults = {
   effect: '',
   damage: 5,
   moveto: [],
-  instructions: 12,
-  instructionsdefault: 12
+  instructions: 15,
+  instructionsdefault: 15
 }
 
 var defaults = {
