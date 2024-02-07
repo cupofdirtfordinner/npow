@@ -64,6 +64,21 @@
       <input type='text' name='filter' value='' placeholder='exclude results' style='color:blue;width:100%;left:5%;background-color:white;opacity:.5' id='debugexclude'><br>
       <span id="debugtext">Ironically, the debug menu is bugged right now.</span>
      </div>
+     
+     <div id='controls'>
+       <div id='dpad'>
+         <span>setDirection</span>
+         <button onclick='setdirUP()'>^</button>
+         <button onclick='setdirRIGHT()'>></button>
+         <button onclick='setdirLEFT()'><</button>
+         <button onclick='setdirDOWN()'>V</button>
+       </div>
+       <div id='attackset'>
+         <button onclick='setattack()'>attack</button>
+         <button onclick='changeweapon()'>changeweapon</button>
+         <button onclick='deletepath()'>deletepath</button>
+       </div>
+     </div>
     
     <script src="mocha/textures.js"></script>
     <script src="mocha/controls.js"></script>

@@ -14,7 +14,7 @@ body {
   font-family: comicoro;
   color: white;
   box-sizing: border-box;
-  //cursor: none;
+  cursor: none;
 }
 
 .cursor {
@@ -71,6 +71,11 @@ body {
   100% { outline-color: white; outline-offset: 0px;}
 }
 
+@keyframes slowrotate {
+  0% { transform: rotatey(0deg) translatex(12px)}
+  100% { transform: rotatey(360deg)translatex(12px)}
+}
+
 /* too laggy on lower end devices
 @keyframes float {
   0% { transform: translateZ(10px) scaleX(1.4) scaleY(1.4) scaleZ(1.4); }
@@ -90,7 +95,11 @@ body {
 }
 
 .gridspace:hover .abs {
-  transform: translateY(-8px);
+  transform: translateZ(8px);
+}
+.gridspace:hover .abs img {
+  animation: slowrotate 4s linear infinite;
+  //transform-style: flat;
 }
 
 .gridspace.object:hover {
@@ -100,7 +109,7 @@ body {
 
 .gridspace:hover {
   box-shadow: 0px 7px 15px rgba(255, 255, 255, 0.3);
-  transform: translateZ(3px) scale(1.2) scalez(1.2);
+  transform: translateZ(3px) scale(.95) scalez(.95);
 }
 
 /* ui */
@@ -124,6 +133,43 @@ body {
   top: calc(100vh - 5em);
 }
 
+/*controls*/
+#controls {
+  position: absolute;
+  top: 70vh;
+  left: 0;
+  width: 35vw;
+  height: 30vh;
+  background-color: rgba(0, 255, 255, 0.1);
+}
+#controls button {
+  background-color: rgba(0, 0, 0, 0);
+  font-size: 2em;
+}
+#controls #dpad {
+  margin-top: 10%;
+  margin-left: 5%;
+  position: absolute;
+  width: 20%;
+  box-sizing: border-box;
+  border-style: dashed;
+  aspect-ratio: 1 / 1;
+  transform: rotate(45deg);
+}
+#controls #dpad button {
+  aspect-ratio: 1 / 1;
+  box-sizing: border-box;
+  width: calc(50% - 3px);
+  display: inline-block;
+  transform: rotate(-45deg);
+}
+#controls #dpad span {
+  position: absolute;
+  transform: rotate(-45deg);
+  font-size: 2em;
+  filter: drop-shadow(1px, 1px, 9px, black);
+  z-index: 100;
+}
 /* game */
 #map {
   width: 100%;
@@ -167,6 +213,7 @@ body {
   border-radius: 5%;
   border-width: 1px;
   background-color: rgba(140, 140, 140, 0.8);
+  perspective: 1050px;
   transition: 0.1s;
   transform: translateZ(8px);
   animation: fall 1.5s ease-in-out 1;

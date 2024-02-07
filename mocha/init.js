@@ -1,6 +1,6 @@
 const testspan = document.querySelectorAll(".testspan");
 var entities = [];
-
+varselected= {};
 var globalwidth = 0;
 var globalheight = 0;
 function gridify(width, height) {
@@ -171,7 +171,7 @@ async function executepath() {
 }}
 
 function pathFinish() {
-  testspan[5].textContent = "lol"
+  testspan[5].textContent += "lol"
   spawn("shotinthedark", 0, 'idc');
   entities[0].moveto = [];
   entities[0].instructions = entities[0].instructionsdefault;
